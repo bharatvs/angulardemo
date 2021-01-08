@@ -1,0 +1,42 @@
+<employee-count *ngIf="employees" [all]="getAllEmployeesCount()" 
+[male]="getMaleEmployeesCount()"
+[female]="getFemaleEmployeesCount()" (radioButtonCountchanged)="OnEmployeeRadioButtonCountChange($event)"></employee-count>
+<table>
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Depertment
+            </th>
+            <th>Gender</th>
+            <th>
+                Salary
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor='let employee of employees;trackBy:trackByID' >
+        <tr *ngIf="selectedRadioButtonValue=='All'|| selectedRadioButtonValue==employee.gender">
+            
+            <td>
+              <a [routerLink]="['/employee',employee.eid]">  {{employee.eid}}</a>
+            </td>
+            <td>{{employee.name|employeetitle:employee.gender}}</td>
+            <td>{{employee.depertment}}</td>
+            <td>{{employee.gender}}</td>
+            <td>{{employee.salary}}</td>
+            
+            
+        </tr>
+    </ng-container>
+        <tr  *ngIf="!employees||employees.length==0"><td colspan="5">
+            No employees to display
+        </td></tr>
+    </tbody>
+</table>
